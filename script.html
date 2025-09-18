@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bookmarklet</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Bookmarklet</h1>
+    <p>copie e cole na barra de favoritos do seu navegador</p>
+
+  <main>
+    <section>
+  <h2>📚 Khan Academy</h2>
+  <div class="bookmarklet-box">
+    <textarea id="khan-code" readonly>
+javascript:fetch("https://raw.githubusercontent.com/Niximkk/Khanware/refs/heads/main/Khanware.js").then(t=>t.text()).then(eval);
+    </textarea>
+    <button onclick="copyCode()">📋 Copiar</button>
+  </div>
+</section>
+
+<script>
+function copyCode() {
+  const code = document.getElementById("khan-code");
+  code.select();
+  code.setSelectionRange(0, 99999); // Para mobile
+  navigator.clipboard.writeText(code.value);
+  alert("✅ Bookmarklet copiado!");
+}
+</script>
+
+
+    <div class="btn-area">
+      <a href="index.html" class="btn">⬅️ Voltar ao Início</a>
+    </div>
+    
+    <p>Ou 👇🏻</p>
+    
+    <div class="btn-area">
+      <a href="tutoriais.html" class="btn">➡️ Tutoriais </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 TROLLCHIPS</p>
+    <p style="margin-top: 5px; font-size: 0.9em;">
+      (Para acessar tudo, links, scripts e tudo completo, acesse:<br />
+      <a href="https://discord.gg/platformdestroyer" target="_blank" rel="noopener noreferrer">https://discord.gg/platformdestroyer</a>)
+    </p>
+  </footer>
+</body>
+</html>
