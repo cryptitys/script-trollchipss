@@ -320,7 +320,16 @@ document.querySelectorAll(".close").forEach(btn => {
 });
 window.onclick = (e) => { if(e.target.classList.contains("modal")) e.target.style.display = "none"; };
 
-// Finalizar e enviar WhatsApp
+// Valores de cada produto
+const valores = {
+  "LeiaSP": "R$ 20,00",
+  "Redação": "R$ 25,00",
+  "Khan Academy": "R$ 15,00",
+  "Expansão Noturno": "R$ 30,00",
+  "Gabarito": "R$ 10,00"
+};
+
+// Finalizar e enviar WhatsApp com valor específico
 document.querySelectorAll(".finalizeBtn").forEach(btn => {
   btn.addEventListener("click", () => {
     const modal = btn.parentElement.parentElement;
@@ -333,7 +342,9 @@ document.querySelectorAll(".finalizeBtn").forEach(btn => {
       return;
     }
 
-    const mensagem = `Produto: ${produto}\nRA: ${ra}\nSenha: ${senha}\nValor: a definir`;
+    const valorProduto = valores[produto] || "Valor não definido";
+
+    const mensagem = `Produto: ${produto}\nRA: ${ra}\nSenha: ${senha}\nValor: ${valorProduto}`;
     const numeroWhats = "5516996283054"; // Coloque seu número
     const urlWhats = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
 
