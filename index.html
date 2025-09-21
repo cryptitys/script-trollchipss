@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="shortcut icon" href="logo-trollchips.png" type="image/png">
+
   <style>
     /* Reset */
     * {margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif;}
@@ -108,6 +109,46 @@
     .button:hover:before {left:100%;}
     .button:hover {transform:translateY(-3px); background:linear-gradient(135deg,#303030,#444);}
 
+    .modal {
+  display: none; 
+  position: fixed; 
+  z-index: 2000; 
+  left: 0; top: 0; width: 100%; height: 100%; 
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  justify-content: center; 
+  align-items: center;
+}
+
+.modal-content {
+  background: #151515;
+  padding: 30px; 
+  border-radius: 16px;
+  text-align: center;
+  color: #00eaff;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 15px; right: 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+.modal-content button {
+  background:#00eaff; color:#000; border:none; padding:10px 20px; border-radius:12px; cursor:pointer; margin-top:15px;
+  transition:0.3s;
+}
+.modal-content button:hover {background:#00c0cc;}
+
+.modal-content input {
+  width:80%; padding:10px; margin:10px 0; border-radius:8px; border:none;
+}
     /* Footer */
     footer {
       text-align:center; padding:20px; color:#888; margin-top:40px; font-size:0.9rem;
@@ -135,7 +176,60 @@
       <button id="themeToggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
     </div>
   </nav>
+<!-- Modal LeiaSP -->
+<div id="modal-LeiaSP" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Automatização: LeiaSP</h2>
+    <input type="text" class="raInput" placeholder="RA ex: 0001133557359SP">
+    <input type="password" class="senhaInput" placeholder="Senha">
+    <button class="finalizeBtn" data-produto="LeiaSP">Finalizar</button>
+  </div>
+</div>
 
+<!-- Modal Redação -->
+<div id="modal-Redacao" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Automatização: Redação</h2>
+    <input type="text" class="raInput" placeholder="RA ex: 0001133557359SP">
+    <input type="password" class="senhaInput" placeholder="Senha">
+    <button class="finalizeBtn" data-produto="Redação">Finalizar</button>
+  </div>
+</div>
+
+<!-- Modal Khan Academy -->
+<div id="modal-Khan" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Automatização: Khan Academy</h2>
+    <input type="text" class="raInput" placeholder="RA ex: 0001133557359SP">
+    <input type="password" class="senhaInput" placeholder="Senha">
+    <button class="finalizeBtn" data-produto="Khan Academy">Finalizar</button>
+  </div>
+</div>
+
+<!-- Modal Expansão Noturno -->
+<div id="modal-Expansao" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Automatização: Expansão Noturno</h2>
+    <input type="text" class="raInput" placeholder="RA ex: 0001133557359SP">
+    <input type="password" class="senhaInput" placeholder="Senha">
+    <button class="finalizeBtn" data-produto="Expansão Noturno">Finalizar</button>
+  </div>
+</div>
+
+<!-- Modal Gabarito -->
+<div id="modal-Gabarito" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Automatização: Gabarito</h2>
+    <input type="text" class="raInput" placeholder="RA ex: 0001133557359SP">
+    <input type="password" class="senhaInput" placeholder="Senha">
+    <button class="finalizeBtn" data-produto="Gabarito">Finalizar</button>
+  </div>
+</div>
   <!-- Sidebar -->
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-header">
@@ -161,7 +255,7 @@
         <a href="https://crimsonstrauss.xyz/expansao" class="button"><i class="fas fa-moon"></i> Expansão Noturno</a>
         <a href="https://speakify.cupiditys.lol/install" class="button"><i class="fas fa-comments"></i> Speak</a>
         <a href="https://matific.cupiditys.lol/dashboard" class="button"><i class="fas fa-calculator"></i> Matific</a>
-        <a href="https://leiasp.cupiditys.lol/" class="button"><i class="fas fa-book"></i> LeiaSP</a>
+        <a href="#" class="button modal-script" data-produto="LeiaSP"><i class="fas fa-book"><i>Leia sp</i>
         <a href="https://crimsonstrauss.xyz/alura" class="button"><i class="fas fa-laptop"></i> Alura</a>
         <a href="https://apostilastrollchipss.netlify.app/" class="button"><i class="fas fa-book-open"></i> Apostilas</a>
         <a href="https://gabaritostrollchipss.vercel.app/" class="button"><i class="fas fa-book-open"></i> Gabarito</a>
@@ -203,6 +297,52 @@
         body.setAttribute("data-theme", "dark");
       }
     });
+    // Abrir modal
+document.querySelectorAll(".modal-script").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const produto = btn.dataset.produto;
+    let modalId;
+    switch(produto){
+      case "LeiaSP": modalId = "modal-LeiaSP"; break;
+      case "Redação": modalId = "modal-Redacao"; break;
+      case "Khan Academy": modalId = "modal-Khan"; break;
+      case "Expansão Noturno": modalId = "modal-Expansao"; break;
+      case "Gabarito": modalId = "modal-Gabarito"; break;
+    }
+    if(modalId) document.getElementById(modalId).style.display = "flex";
+  });
+});
+
+// Fechar modal
+document.querySelectorAll(".close").forEach(btn => {
+  btn.onclick = () => btn.parentElement.parentElement.style.display = "none";
+});
+window.onclick = (e) => { if(e.target.classList.contains("modal")) e.target.style.display = "none"; };
+
+// Finalizar e enviar WhatsApp
+document.querySelectorAll(".finalizeBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const modal = btn.parentElement.parentElement;
+    const ra = modal.querySelector(".raInput").value.trim();
+    const senha = modal.querySelector(".senhaInput").value.trim();
+    const produto = btn.dataset.produto;
+
+    if(!ra || !senha){
+      alert("Preencha todos os campos!");
+      return;
+    }
+
+    const mensagem = `Produto: ${produto}\nRA: ${ra}\nSenha: ${senha}\nValor: a definir`;
+    const numeroWhats = "5516996283054"; // Coloque seu número
+    const urlWhats = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
+
+    window.open(urlWhats, "_blank");
+    modal.style.display = "none";
+    modal.querySelector(".raInput").value = "";
+    modal.querySelector(".senhaInput").value = "";
+  });
+});
   </script>
 </body>
   </html>
