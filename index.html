@@ -221,8 +221,7 @@
   <a href="#" class="button modal-script" data-produto="Expansão Noturno"><i class="fas fa-moon"></i> Expansão Noturno</a>
   <a href="#" class="button modal-script" data-produto="LeiaSP"><i class="fas fa-book"></i> LeiaSP</a>
   <a href="#" class="button modal-script" data-produto="Alura"><i class="fas fa-laptop"></i> Alura</a>
-  <a href="#" class="button modal-script" data-produto="Apostilas"><i class="fas fa-book-open"></i> Apostilas</a>
-  <a href="#" class="button modal-script" data-produto="Gabarito"><i class="fas fa-book-open"></i> Gabarito</a>
+    <a href="https://apostilastrollchipss.netlify.app/" class="button"><i class="fas fa-book-open"></i> Apostilas</a>    <a href="#" class="button modal-script" data-produto="Gabarito"><i class="fas fa-book-open"></i> Gabarito</a>
 </div>
     </section>
   </main>
@@ -241,13 +240,7 @@
       mainContent.classList.toggle("with-sidebar");
     });
     
-    function copyBookmarklet() {
-  const script = `javascript:fetch("https://raw.githubusercontent.com/Niximkk/Khanware/refs/heads/main/Khanware.js").then(t=>t.text()).then(eval);`; 
-  // 🔴 Aqui você coloca o código real do bookmarklet
-  navigator.clipboard.writeText(script).then(() => {
-    alert("✅ Script copiado! Agora cole na barra de favoritos.");
-  });
-    } 
+    
 
 
     
@@ -269,12 +262,11 @@ const finalizeBtn = modal.querySelector(".finalizeBtn");
 // 💰 Tabela de preços
 const precos = {
   "TarefaSP": "Cada tarefa é R$ 1,00",
-  "Redação": "R$ 15,00",
-  "Khan Academy": "R$ 20,00",
+  "Redação": "R$ 3,00",
+  "Khan Academy": "R$ 5,00",
   "Expansão Noturno": "R$ 12,00",
-  "LeiaSP": "R$ 10,00",
-  "Alura": "R$ 25,00",
-  "Apostilas": "R$ 8,00",
+  "LeiaSP": "R$ 7,00",
+  "Alura": "R$ 10,00",
   "Gabarito": "R$ 5,00"
 };
 
@@ -338,7 +330,7 @@ finalizeBtn.addEventListener("click", () => {
   }
 
   const mensagem = `Produto: ${produto}\nRA: ${ra}\nSenha: ${senha}\nValor: ${valor}`;
-  const numeroWhats = "SEU_NUMERO_AQUI"; // coloque seu número
+  const numeroWhats = "5516996283054"; // coloque seu número
   const urlWhats = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
 
   window.open(urlWhats, "_blank");
