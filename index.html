@@ -329,10 +329,13 @@ finalizeBtn.addEventListener("click", () => {
     return;
   }
 
-  const mensagem = `Produto: ${produto}\nRA: ${ra}\nSenha: ${senha}\nValor: ${valor}`;
-  const numeroWhats = "5516996283054"; // coloque seu número
-  const urlWhats = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
+  const mensagem = `🛒 Produto: ${produto}
+🆔 RA: ${ra}
+🔑 Senha: ${senha}
+💰 Valor: ${valor}`;
 
+const numeroWhats = "5516996283054"; 
+const urlWhats = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
   window.open(urlWhats, "_blank");
   modal.style.display = "none";
 });
