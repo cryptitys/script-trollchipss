@@ -176,60 +176,24 @@
       <button id="themeToggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
     </div>
   </nav>
-<!-- Modal LeiaSP -->
-<div id="modal-LeiaSP" class="modal">
+
+
+<!-- Modal padrão (RA e Senha) -->
+<div id="modalTemplate" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <h2>Automatização: LeiaSP</h2>
-    <input type="text" class="raInput" placeholder="RA ex: 0001133557359SP">
-    <input type="password" class="senhaInput" placeholder="Senha">
-    <button class="finalizeBtn" data-produto="LeiaSP">Finalizar</button>
+    <h2 class="modal-title"></h2>
+    <p class="extra-message" style="display:none;"></p>
+    <input type="text" class="raInput" placeholder="RA ex: 0001133557359SP" style="display:none;">
+    <input type="password" class="senhaInput" placeholder="Senha" style="display:none;">
+    <button class="continueBtn" style="display:none;">Continuar</button>
+    <button class="finalizeBtn" style="display:none;">Finalizar</button>
   </div>
 </div>
 
-<!-- Modal Redação -->
-<div id="modal-Redacao" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Automatização: Redação</h2>
-    <input type="text" class="raInput" placeholder="RA ex: 0001133557359SP">
-    <input type="password" class="senhaInput" placeholder="Senha">
-    <button class="finalizeBtn" data-produto="Redação">Finalizar</button>
-  </div>
-</div>
 
-<!-- Modal Khan Academy -->
-<div id="modal-Khan" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Automatização: Khan Academy</h2>
-    <input type="text" class="raInput" placeholder="RA ex: 0001133557359SP">
-    <input type="password" class="senhaInput" placeholder="Senha">
-    <button class="finalizeBtn" data-produto="Khan Academy">Finalizar</button>
-  </div>
-</div>
 
-<!-- Modal Expansão Noturno -->
-<div id="modal-Expansao" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Automatização: Expansão Noturno</h2>
-    <input type="text" class="raInput" placeholder="RA ex: 0001133557359SP">
-    <input type="password" class="senhaInput" placeholder="Senha">
-    <button class="finalizeBtn" data-produto="Expansão Noturno">Finalizar</button>
-  </div>
-</div>
 
-<!-- Modal Gabarito -->
-<div id="modal-Gabarito" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Automatização: Gabarito</h2>
-    <input type="text" class="raInput" placeholder="RA ex: 0001133557359SP">
-    <input type="password" class="senhaInput" placeholder="Senha">
-    <button class="finalizeBtn" data-produto="Gabarito">Finalizar</button>
-  </div>
-</div>
   <!-- Sidebar -->
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-header">
@@ -250,19 +214,16 @@
     <section id="scripts" class="category-box">
       <h2 class="category-title"><i class="fas fa-code"></i> Scripts</h2>
       <div class="buttons-container">
-        <a href="https://taskitos.cupiditys.lol" class="button"><i class="fas fa-tasks"></i> TarefaSP</a>
-      <!--  <a href="https://redacao.cupiditys.lol/" class="button"><i class="fas fa-pen-to-square"></i> Redação Paulista</a> -->
-       <!-- <a href="https://crimsonstrauss.xyz/expansao" class="button"><i class="fas fa-moon"></i> Expansão Noturno</a> -->
-        <a href="https://speakify.cupiditys.lol/install" class="button"><i class="fas fa-comments"></i> Speak</a>
-      <!--  <a href="https://matific.cupiditys.lol/dashboard" class="button"><i class="fas fa-calculator"></i> Matific</a> -->
-        <a href="#" class="button modal-script" data-produto="LeiaSP"><i class="fas fa-book"></i>Leia SP </a>
-        <a href="https://crimsonstrauss.xyz/alura" class="button"><i class="fas fa-laptop"></i> Alura</a>
-        <a href="https://apostilastrollchipss.netlify.app/" class="button"><i class="fas fa-book-open"></i> Apostilas</a>
-      <!--  <a href="https://gabaritostrollchipss.vercel.app/" class="button"><i class="fas fa-book-open"></i> Gabarito</a> -->
-        
-     <!--   <a <button class="button" onclick="copyBookmarklet()">  <i class="fas fa-graduation-cap"></i> Khan Academy</button> </a> -->
-          
-      </div>
+      <div class="buttons-container">
+  <a href="#" class="button modal-script" data-produto="TarefaSP"><i class="fas fa-tasks"></i> TarefaSP</a>
+  <a href="#" class="button modal-script" data-produto="Redação"><i class="fas fa-pen-to-square"></i> Redação</a>
+  <a href="#" class="button modal-script" data-produto="Khan Academy"><i class="fas fa-graduation-cap"></i> Khan Academy</a>
+  <a href="#" class="button modal-script" data-produto="Expansão Noturno"><i class="fas fa-moon"></i> Expansão Noturno</a>
+  <a href="#" class="button modal-script" data-produto="LeiaSP"><i class="fas fa-book"></i> LeiaSP</a>
+  <a href="#" class="button modal-script" data-produto="Alura"><i class="fas fa-laptop"></i> Alura</a>
+  <a href="#" class="button modal-script" data-produto="Apostilas"><i class="fas fa-book-open"></i> Apostilas</a>
+  <a href="#" class="button modal-script" data-produto="Gabarito"><i class="fas fa-book-open"></i> Gabarito</a>
+</div>
     </section>
   </main>
 
@@ -297,62 +258,91 @@
         body.setAttribute("data-theme", "dark");
       }
     });
-    // Abrir modal
+const modal = document.getElementById("modalTemplate");
+const modalTitle = modal.querySelector(".modal-title");
+const extraMessage = modal.querySelector(".extra-message");
+const raInput = modal.querySelector(".raInput");
+const senhaInput = modal.querySelector(".senhaInput");
+const continueBtn = modal.querySelector(".continueBtn");
+const finalizeBtn = modal.querySelector(".finalizeBtn");
+
+// 💰 Tabela de preços
+const precos = {
+  "TarefaSP": "Cada tarefa é R$ 1,00",
+  "Redação": "R$ 15,00",
+  "Khan Academy": "R$ 20,00",
+  "Expansão Noturno": "R$ 12,00",
+  "LeiaSP": "R$ 10,00",
+  "Alura": "R$ 25,00",
+  "Apostilas": "R$ 8,00",
+  "Gabarito": "R$ 5,00"
+};
+
+// Abrir modal
 document.querySelectorAll(".modal-script").forEach(btn => {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     const produto = btn.dataset.produto;
-    let modalId;
-    switch(produto){
-      case "LeiaSP": modalId = "modal-LeiaSP"; break;
-      case "Redação": modalId = "modal-Redacao"; break;
-      case "Khan Academy": modalId = "modal-Khan"; break;
-      case "Expansão Noturno": modalId = "modal-Expansao"; break;
-      case "Gabarito": modalId = "modal-Gabarito"; break;
+    const valor = precos[produto] || "A combinar";
+
+    modal.style.display = "flex";
+    modalTitle.textContent = `Automatização: ${produto}`;
+    extraMessage.style.display = "none";
+    raInput.style.display = "none";
+    senhaInput.style.display = "none";
+    continueBtn.style.display = "none";
+    finalizeBtn.style.display = "none";
+    raInput.value = "";
+    senhaInput.value = "";
+
+    if (produto === "TarefaSP") {
+      // Primeiro passo: só mostra a mensagem de valor
+      extraMessage.textContent = valor;
+      extraMessage.style.display = "block";
+      continueBtn.style.display = "inline-block";
+
+      continueBtn.onclick = () => {
+        extraMessage.style.display = "none";
+        continueBtn.style.display = "none";
+        raInput.style.display = "block";
+        senhaInput.style.display = "block";
+        finalizeBtn.style.display = "inline-block";
+        finalizeBtn.dataset.produto = produto;
+      };
+    } else {
+      // Produtos normais
+      extraMessage.textContent = `Valor: ${valor}`;
+      extraMessage.style.display = "block";
+      raInput.style.display = "block";
+      senhaInput.style.display = "block";
+      finalizeBtn.style.display = "inline-block";
+      finalizeBtn.dataset.produto = produto;
     }
-    if(modalId) document.getElementById(modalId).style.display = "flex";
   });
 });
 
 // Fechar modal
-document.querySelectorAll(".close").forEach(btn => {
-  btn.onclick = () => btn.parentElement.parentElement.style.display = "none";
-});
-window.onclick = (e) => { if(e.target.classList.contains("modal")) e.target.style.display = "none"; };
+modal.querySelector(".close").onclick = () => modal.style.display = "none";
+window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
 
-// Valores de cada produto
-const valores = {
-  "LeiaSP": "R$ 20,00",
-  "Redação": "R$ 25,00",
-  "Khan Academy": "R$ 15,00",
-  "Expansão Noturno": "R$ 30,00",
-  "Gabarito": "R$ 10,00"
-};
+// Finalizar e enviar WhatsApp
+finalizeBtn.addEventListener("click", () => {
+  const produto = finalizeBtn.dataset.produto;
+  const ra = raInput.value.trim();
+  const senha = senhaInput.value.trim();
+  const valor = precos[produto] || "A combinar";
 
-// Finalizar e enviar WhatsApp com valor específico
-document.querySelectorAll(".finalizeBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const modal = btn.parentElement.parentElement;
-    const ra = modal.querySelector(".raInput").value.trim();
-    const senha = modal.querySelector(".senhaInput").value.trim();
-    const produto = btn.dataset.produto;
+  if (!ra || !senha) {
+    alert("Preencha todos os campos!");
+    return;
+  }
 
-    if(!ra || !senha){
-      alert("Preencha todos os campos!");
-      return;
-    }
+  const mensagem = `Produto: ${produto}\nRA: ${ra}\nSenha: ${senha}\nValor: ${valor}`;
+  const numeroWhats = "SEU_NUMERO_AQUI"; // coloque seu número
+  const urlWhats = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
 
-    const valorProduto = valores[produto] || "Valor não definido";
-
-    const mensagem = `Produto: ${produto}\nRA: ${ra}\nSenha: ${senha}\nValor: ${valorProduto}`;
-    const numeroWhats = "5516996283054"; // Coloque seu número
-    const urlWhats = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
-
-    window.open(urlWhats, "_blank");
-    modal.style.display = "none";
-    modal.querySelector(".raInput").value = "";
-    modal.querySelector(".senhaInput").value = "";
-  });
+  window.open(urlWhats, "_blank");
+  modal.style.display = "none";
 });
   </script>
 </body>
