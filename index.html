@@ -115,7 +115,101 @@
       <button id="themeToggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
     </div>
   </nav>
+<!-- Modal de contribuição -->
+<div id="contribModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>💖 Contribua com o projeto</h2>
+    <p>Se você gosta do Trollchipss, considere contribuir para manter o projeto ativo e em constante melhoria!</p>
+    <a href="link-do-whatsapp-ou-pagamento" class="button">Contribuir</a>
+  </div>
+</div>
 
+<style>
+  /* Modal base */
+  .modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; 
+    left: 0; top: 0; width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    justify-content: center; 
+    align-items: center;
+  }
+
+  .modal-content {
+    background: rgba(25,25,25,0.9);
+    padding: 30px; 
+    border-radius: 16px;
+    text-align: center;
+    color: #00eaff;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    position: relative;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .modal-content h2 {margin-bottom:15px;}
+  .modal-content p {margin-bottom:25px; font-size:1rem; line-height:1.4rem;}
+
+  .close {
+    position: absolute;
+    top: 12px; right: 18px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #fff;
+    transition:0.3s;
+  }
+  .close:hover {color:#00f0ff;}
+
+  .modal-content .button {
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    background: linear-gradient(135deg,#1f1f1f,#2c2c2c);
+    color:#fff;
+    padding:10px 20px;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+  }
+  .modal-content .button:hover {
+    background: linear-gradient(135deg,#303030,#555);
+    transform:translateY(-2px);
+  }
+
+  @keyframes fadeIn {
+    from {opacity:0; transform: translateY(-20px);}
+    to {opacity:1; transform: translateY(0);}
+  }
+</style>
+
+<script>
+  const contribModal = document.getElementById("contribModal");
+  const closeBtn = contribModal.querySelector(".close");
+
+  // Abrir modal ao carregar a página
+  window.addEventListener("load", () => {
+    contribModal.style.display = "flex";
+  });
+
+  // Fechar ao clicar no "X"
+  closeBtn.addEventListener("click", () => {
+    contribModal.style.display = "none";
+  });
+
+  // Fechar ao clicar fora do conteúdo
+  window.addEventListener("click", (e) => {
+    if(e.target === contribModal){
+      contribModal.style.display = "none";
+    }
+  });
+</script>
+  
   <!-- Sidebar -->
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-header"><i class="fas fa-book"></i> Menu</div>
