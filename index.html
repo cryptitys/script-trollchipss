@@ -121,13 +121,12 @@
     <span class="close">&times;</span>
     <h2>Contribua com o projeto</h2>
     <p>Se você gosta do Trollchipss, considere contribuir para manter o projeto ativo e em constante melhoria!</p>
-    <p>Qualquer valor é valor, então contribua!</p>
-    <a href="link-do-whatsapp-ou-pagamento" class="button">Contribuir</a>
+    <button id="copyPix" class="button">Contribuir</button>
+    <p id="pixCopied" style="display:none; margin-top:10px; color:#00ffb0; font-weight:600;">Chave PIX copiada!</p>
   </div>
 </div>
 
 <style>
-  /* Modal base */
   .modal {
     display: none; 
     position: fixed; 
@@ -154,29 +153,14 @@
 
   .modal-content h2 {margin-bottom:15px;}
   .modal-content p {margin-bottom:25px; font-size:1rem; line-height:1.4rem;}
-
-  .close {
-    position: absolute;
-    top: 12px; right: 18px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #fff;
-    transition:0.3s;
-  }
+  .close {position: absolute; top: 12px; right: 18px; font-size: 1.5rem; cursor: pointer; color: #fff; transition:0.3s;}
   .close:hover {color:#00f0ff;}
 
   .modal-content .button {
-    display:inline-flex;
-    justify-content:center;
-    align-items:center;
-    gap:8px;
+    display:inline-flex; justify-content:center; align-items:center; gap:8px;
     background: linear-gradient(135deg,#1f1f1f,#2c2c2c);
-    color:#fff;
-    padding:10px 20px;
-    border-radius:12px;
-    text-decoration:none;
-    font-weight:600;
-    transition:0.3s;
+    color:#fff; padding:10px 20px; border-radius:12px; font-weight:600;
+    cursor:pointer; border:none; transition:0.3s;
   }
   .modal-content .button:hover {
     background: linear-gradient(135deg,#303030,#555);
@@ -192,22 +176,34 @@
 <script>
   const contribModal = document.getElementById("contribModal");
   const closeBtn = contribModal.querySelector(".close");
+  const copyPixBtn = document.getElementById("copyPix");
+  const pixCopiedText = document.getElementById("pixCopied");
+
+  const chavePix = "00020101021126510014br.gov.bcb.pix0129vrodriguespereira38@gmail.com5204000053039865802BR5917VITOR H R PEREIRA6006MOTUCA62070503***6304DC56";
 
   // Abrir modal ao carregar a página
   window.addEventListener("load", () => {
     contribModal.style.display = "flex";
   });
 
-  // Fechar ao clicar no "X"
+  // Fechar ao clicar no X
   closeBtn.addEventListener("click", () => {
     contribModal.style.display = "none";
   });
 
-  // Fechar ao clicar fora do conteúdo
+  // Fechar ao clicar fora
   window.addEventListener("click", (e) => {
-    if(e.target === contribModal){
-      contribModal.style.display = "none";
-    }
+    if(e.target === contribModal) contribModal.style.display = "none";
+  });
+
+  // Copiar chave PIX
+  copyPixBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText(chavePix).then(() => {
+      pixCopiedText.style.display = "block";
+      setTimeout(() => { pixCopiedText.style.display = "none"; }, 2500);
+    }).catch(err => {
+      alert("Erro ao copiar PIX: "+err);
+    });
   });
 </script>
   
@@ -225,11 +221,11 @@
     <section id="scripts" class="category-box">
       <h2 class="category-title"><i class="fas fa-code"></i> Scripts</h2>
       <div class="buttons-container">
-        <a href="link-da-tarefasp" class="button"><i class="fas fa-tasks"></i> TarefaSP</a>
-        <a href="link-da-redacao" class="button"><i class="fas fa-pen-to-square"></i> Redação</a>
+        <a href="htttps://taskitos.cupiditys.lol" class="button"><i class="fas fa-tasks"></i> TarefaSP</a>
+        <a href="https://redacao.cupiditys.lol" class="button"><i class="fas fa-pen-to-square"></i> Redação</a>
         <a href="link-do-khan" class="button"><i class="fas fa-graduation-cap"></i> Khan Academy</a>
-        <a href="link-expansao" class="button"><i class="fas fa-moon"></i> Expansão Noturno</a>
-        <a href="link-leiasp" class="button"><i class="fas fa-book"></i> LeiaSP</a>
+        <a href="https://expansao.cupiditys.lol" class="button"><i class="fas fa-moon"></i> Expansão Noturno</a>
+        <a href="https://leiasp.cupiditys.lol" class="button"><i class="fas fa-book"></i> LeiaSP</a>
         <a href="link-alura" class="button"><i class="fas fa-laptop"></i> Alura</a>
         <a href="https://apostilastrollchipss.netlify.app/" class="button"><i class="fas fa-book-open"></i> Apostilas</a>
         <a href="gabarito1dia.html" class="button"><i class="fas fa-book-open"></i> Gabarito 1Dia</a>
