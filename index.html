@@ -10,99 +10,94 @@
 
   <style>
     /* Reset e fontes */
-    * {margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif;}
-    body[data-theme="dark"] {background:#0a0a0a; color:#fff;}
-    body[data-theme="light"] {background:#f5f5f5; color:#111;}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+    body[data-theme="dark"]{background:#0a0a0a;color:#fff;transition:0.3s;}
+    body[data-theme="light"]{background:#f5f5f5;color:#111;transition:0.3s;}
 
     /* Navbar */
-    .navbar {
-      position: fixed;
-      top:0; left:0; right:0;
-      height:60px;
-      background:#111;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 20px;
-      box-shadow:0 2px 6px rgba(0,0,0,0.4);
-      z-index:1000;
+    .navbar{
+      position:fixed;top:0;left:0;right:0;height:60px;background:#111;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 20px;box-shadow:0 2px 6px rgba(0,0,0,0.4);z-index:1000;
+      transition:0.3s;
     }
-    .nav-left {display:flex; align-items:center; gap:15px;}
-    .logo {display:flex; align-items:center; gap:8px; font-weight:700; font-size:1.2rem; text-decoration:none; color:#00eaff;}
-    .logo img {width:36px; height:36px; border-radius:8px; object-fit:contain; border:2px solid #00eaff; box-shadow:0 0 12px #00eaff66;}
-    .theme-toggle {background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer; transition:0.3s;}
-    .theme-toggle:hover {color:#00f0ff;}
+    .nav-left{display:flex;align-items:center;gap:15px;}
+    .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.2rem;text-decoration:none;color:#00eaff;transition:0.3s;}
+    .logo img{width:36px;height:36px;border-radius:10px;object-fit:contain;border:2px solid #00eaff;box-shadow:0 0 15px #00eaff66;transition:0.3s;}
+    .logo:hover{transform:scale(1.05);}
+    .theme-toggle{background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;transition:0.3s;}
+    .theme-toggle:hover{color:#00f0ff;}
 
     /* Sidebar */
-    .sidebar {
-      position: fixed; top:60px; left:0;
-      width:220px; height:100%;
-      background:#151515;
-      padding:20px 10px;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      z-index:900;
+    .sidebar{
+      position:fixed;top:60px;left:0;width:240px;height:100%;
+      background:rgba(25,25,25,0.95);backdrop-filter:blur(10px);
+      padding:20px 10px;transform:translateX(-100%);
+      transition:transform 0.4s ease;z-index:900;
+      border-right:1px solid #222;
     }
-    .sidebar.active {transform:translateX(0);}
-    .sidebar-header {margin-bottom:20px; text-align:center; color:#bbb; font-weight:600;}
-    .sidebar-menu {list-style:none;}
-    .sidebar-item {margin-bottom:15px;}
-    .sidebar-link {
-      display:flex; align-items:center; gap:10px;
-      color:#ddd; text-decoration:none; padding:10px 12px;
-      border-radius:8px; transition:0.3s; font-weight:500;
+    .sidebar.active{transform:translateX(0);}
+    .sidebar-header{margin-bottom:25px;text-align:center;color:#bbb;font-weight:600;font-size:1.1rem;}
+    .sidebar-menu{list-style:none;}
+    .sidebar-item{margin-bottom:18px;}
+    .sidebar-link{
+      display:flex;align-items:center;gap:12px;
+      color:#ddd;text-decoration:none;padding:10px 12px;
+      border-radius:10px;transition:0.3s;font-weight:500;
     }
-    .sidebar-link:hover {background:#222; color:#00f0ff;}
+    .sidebar-link:hover{background:#222;color:#00eaff;transform:scale(1.03);}
 
     /* Conteúdo principal */
-    .main-content {margin-top:70px; padding:20px; margin-left:0; transition: margin-left 0.3s;}
-    .with-sidebar {margin-left:240px;}
+    .main-content{margin-top:70px;padding:25px;margin-left:0;transition:margin-left 0.4s;}
+    .with-sidebar{margin-left:260px;}
 
     /* Cards de categorias */
-    .category-box {
-      background: rgba(30,30,30,0.7);
-      border-radius:16px;
-      padding:25px;
-      margin-bottom:30px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.4);
-      backdrop-filter: blur(8px);
-      transition: transform 0.3s;
+    .category-box{
+      background:rgba(30,30,30,0.5);
+      border-radius:20px;
+      padding:30px;
+      margin-bottom:35px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.5);
+      backdrop-filter:blur(12px);
+      transition:transform 0.3s,box-shadow 0.3s;
     }
-    .category-box:hover {transform: translateY(-4px);}
-    .category-title {
-      font-size:1.5rem; color:#00eaff; margin-bottom:20px;
-      display:flex; align-items:center; gap:12px; justify-content:center;
+    .category-box:hover{transform:translateY(-5px);box-shadow:0 15px 35px rgba(0,0,0,0.6);}
+    .category-title{
+      font-size:1.6rem;color:#00eaff;margin-bottom:25px;
+      display:flex;align-items:center;gap:12px;justify-content:center;
     }
 
-    .buttons-container {
-      display:flex; flex-wrap:wrap; gap:15px; justify-content:center;
+    /* Botões premium */
+    .buttons-container{
+      display:flex;flex-wrap:wrap;gap:18px;justify-content:center;
     }
-    .button {
-      flex:1 1 200px; max-width:260px;
-      height:55px; display:flex; align-items:center; justify-content:center; gap:10px;
-      font-weight:600; text-decoration:none; color:#fff;
+    .button{
+      flex:1 1 220px;max-width:280px;height:60px;
+      display:flex;align-items:center;justify-content:center;gap:12px;
+      font-weight:600;text-decoration:none;color:#fff;
+      border-radius:15px;position:relative;overflow:hidden;
       background: linear-gradient(135deg,#1f1f1f,#2c2c2c);
-      border-radius:12px;
-      transition:0.3s;
-      position:relative; overflow:hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      box-shadow:0 6px 18px rgba(0,0,0,0.6);
+      transition:0.4s;
     }
-    .button:before {
-      content:""; position:absolute; top:0; left:-100%; width:100%; height:100%;
-      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
-      transition:0.5s;
+    .button:before{
+      content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
+      transition:0.6s;
     }
-    .button:hover:before {left:100%;}
-    .button:hover {transform:translateY(-3px); background:linear-gradient(135deg,#303030,#444);}
+    .button:hover:before{left:100%;}
+    .button:hover{transform:translateY(-4px); background:linear-gradient(135deg,#303030,#555);box-shadow:0 10px 25px rgba(0,0,0,0.7);}
+    .button i{transition:0.3s;}
+    .button:hover i{transform:scale(1.2);}
 
     /* Footer */
-    footer {text-align:center; padding:20px; color:#888; margin-top:40px; font-size:0.9rem;}
+    footer{text-align:center;padding:20px;color:#888;margin-top:40px;font-size:0.9rem;}
 
     /* Responsivo */
     @media(max-width:768px){
-      .with-sidebar {margin-left:0;}
-      .sidebar {width:200px;}
-      .button {flex:1 1 100%;}
+      .with-sidebar{margin-left:0;}
+      .sidebar{width:200px;}
+      .button{flex:1 1 100%;}
     }
   </style>
 </head>
@@ -123,16 +118,10 @@
 
   <!-- Sidebar -->
   <aside id="sidebar" class="sidebar">
-    <div class="sidebar-header">
-      <i class="fas fa-book"></i> Menu
-    </div>
+    <div class="sidebar-header"><i class="fas fa-book"></i> Menu</div>
     <ul class="sidebar-menu">
-      <li class="sidebar-item">
-        <a href="#scripts" class="sidebar-link"><i class="fas fa-code"></i> Scripts</a>
-      </li>
-      <li class="sidebar-item">
-        <a href="https://trollchipss.netlify.app" class="sidebar-link"><i class="fas fa-arrow-left"></i> Voltar</a>
-      </li>
+      <li class="sidebar-item"><a href="#scripts" class="sidebar-link"><i class="fas fa-code"></i> Scripts</a></li>
+      <li class="sidebar-item"><a href="https://trollchipss.netlify.app" class="sidebar-link"><i class="fas fa-arrow-left"></i> Voltar</a></li>
     </ul>
   </aside>
 
@@ -168,12 +157,8 @@
     });
 
     themeToggle.addEventListener("click", () => {
-      if(body.getAttribute("data-theme")==="dark"){
-        body.setAttribute("data-theme","light");
-      }else{
-        body.setAttribute("data-theme","dark");
-      }
+      body.setAttribute("data-theme", body.getAttribute("data-theme")==="dark"?"light":"dark");
     });
   </script>
 </body>
-</html>
+  </html>
