@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script>
+    (function() {
+        'use strict';
+        if (window.DarkSense) return;
+        class DarkSense {
+            constructor() {
+                this.isAdblockDetected = false;
+                this.isOverlayCreated = false;
+                this.init();
+            }
+            init() {
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', () => this.startDetection());
+                } else {
+                    this.startDetection();
+                }
+            }
+            startDetection() {
+                const testAd = document.createElement('div');
+                testAd.innerHTML = '&nbsp;';
+                testAd.className = 'adsbox ad sponsor advertisement';
+                testAd.style.cssText = 'position:absolute!important;left:-10000px!important;top:-10000px!important;width:1px!important;height:1px!important;';
+                document.body.appendChild(testAd);
+                setTimeout(() => {
+                    if (testAd.offsetHeight === 0 || window.getComputedStyle(testAd).display === 'none') {
+                        this.handleAdblockDetected();
+                    }
+                    document.body.removeChild(testAd);
+                }, 100);
+            }
+            createOverlay() {
+                if (this.isOverlayCreated) return;
+                this.isOverlayCreated = true;
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    #darksense-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; z-index: 2147483647; font-family: 'Poppins', sans-serif; }
+                    .darksense-modal { background: linear-gradient(145deg, #1a1a1a, #21113b); border: 2px solid #4c10d6; border-radius: 20px; padding: 2rem; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 20px 50px rgba(76, 16, 214, 0.5); color: #fff; }
+                    .darksense-icon { font-size: 3rem; color: #ff3b3b; margin-bottom: 1rem; animation: pulse 1.5s infinite; }
+                    .darksense-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem; }
+                    .darksense-message { font-size: 1rem; color: #ccc; margin-bottom: 1.5rem; }
+                    .darksense-button { background: linear-gradient(135deg, #4c10d6, #7c3aed); color: #fff; border: none; border-radius: 10px; padding: 12px 24px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(76, 16, 214, 0.4); }
+                    .darksense-button:hover { background: linear-gradient(135deg, #5d1ae6, #8b46f7); transform: translateY(-2px); }
+                    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+                `;
+                document.head.appendChild(style);
+                const overlay = document.createElement('div');
+                overlay.id = 'darksense-overlay';
+                overlay.innerHTML = `
+                    <div class="darksense-modal">
+                        <div class="darksense-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h2 class="darksense-title">Bloqueador de Anúncios Detectado</h2>
+                        <p class="darksense-message">Para continuar aproveitando nosso conteúdo, por favor desative seu bloqueador de anúncios e recarregue a página.</p>
+                        <button class="darksense-button" onclick="window.location.reload()"><i class="fas fa-sync-alt"></i> Recarregar Página</button>
+                    </div>`;
+                document.body.appendChild(overlay);
+            }
+            handleAdblockDetected() {
+                if (this.isAdblockDetected) return;
+                this.isAdblockDetected = true;
+                this.createOverlay();
+            }
+        }
+        window.DarkSense = new DarkSense();
+    })();
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TROLLCHIPS - Hub Central</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="logo-trollchips.png" type="image/png">
+
+    <style>
+        :root {
+            --primary-color: #5865F2;
+            --secondary-color: #7c3aed;
+            --bg-dark: #0D0F1A;
+            --bg-light: #161827;
+            --card-bg: rgba(22, 24, 39, 0.7);
+            --text-primary: #FFFFFF;
+            --text-secondary: #a0a3bd;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --radius-xl: 16px;
+            --transition-normal: 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(88, 101, 242, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 40%),
+                linear-gradient(160deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            overflow-x: hidden;
+        }
+
+        /* --- Main Layout --- */
+        .main-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            padding: 2rem 1rem;
+        }
+        .main-content {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* --- Header --- */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 0.6s ease-out forwards;
+        }
+        @keyframes fadeInDown { to { opacity: 1; transform: translateY(0); } }
+
+        .logo-text {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        /* --- Grid & Cards --- */
+        .scripts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .script-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 1.75rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .script-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .script-card:not(.disabled):hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .script-card.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .script-card.disabled:hover {
+            transform: none;
+            border-color: var(--border-color);
+            box-shadow: none;
+        }
+        
+        .script-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+        .script-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .script-title i { color: var(--primary-color); }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 50px;
+            flex-shrink: 0;
+        }
+        .status-indicator.online { background: rgba(16, 185, 129, 0.1); color: var(--success-color); }
+        .status-indicator.in_development { background: rgba(245, 158, 11, 0.1); color: var(--warning-color); }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; animation: pulse 2s infinite; }
+        .status-dot.online { background: var(--success-color); }
+        .status-dot.in_development { background: var(--warning-color); }
+        @keyframes pulse { 50% { opacity: 0.4; } }
+
+        .script-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* --- Footer --- */
+        .footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out 1s forwards;
+        }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Notifications --- */
+        .notification-container {
+            position: fixed; top: 20px; right: 20px; z-index: 2000;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .notification {
+            padding: 1rem 1.5rem; border-radius: 12px; font-weight: 500;
+            transform: translateX(120%); opacity: 0;
+            transition: all 0.4s cubic-bezier(0.215, 0.610, 0.355, 1);
+            width: 340px; border: 1px solid var(--border-color);
+            background: var(--card-bg); backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 1rem;
+        }
+        .notification.show { transform: translateX(0); opacity: 1; }
+        .notification i { font-size: 1.5rem; }
+        .notification.success i { color: var(--success-color); }
+        .notification.info i { color: var(--primary-color); }
+
+        @media (max-width: 768px) {
+            .logo-text { font-size: 2.5rem; }
+            .script-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+        }
+        @media (max-width: 480px) {
+            body { padding-top: 70px; }
+            .notification-container { right: 10px; left: 10px; width: auto; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="main-wrapper">
+        <main class="main-content">
+            <header class="header">
+                <h1 class="logo-text">TROLLCHIPS</h1>
+                <p class="subtitle">Sua Central de Ferramentas e Scripts</p>
+            </header>
+
+            <div class="scripts-grid" id="scriptsGrid">
+                </div>
+
+            <footer class="footer">
+                <p>© 2025 TROLLCHIPS - Todos os direitos reservados.</p>
+            </footer>
+        </main>
+    </div>
+
+    <div id="notification-container" class="notification-container"></div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const scriptsGrid = document.getElementById('scriptsGrid');
+        const notificationContainer = document.getElementById('notification-container');
+
+        // Dados dos scripts (simulando uma API)
+        const scriptsData = [
+            { name: "TarefaSP", icon: "fa-tasks", description: "Automação para as tarefas de SP.", url: "https://taskitos.cupiditys.lol/", status: "online" },
+            { name: "Redação", icon: "fa-pen-to-square", description: "Assistente inteligente para suas redações.", url: "https://redacao.cupiditys.lol", status: "online" },
+            { name: "Khan Academy", icon: "fa-graduation-cap", description: "Scripts para a plataforma Khan Academy.", url: "sai", status: "online" },
+            { name: "LeiaSP", icon: "fa-book-reader", description: "Ferramenta para a plataforma LeiaSP.", url: "https://leiasp.cupiditys.lol/", status: "online" },
+            { name: "Apostilas", icon: "fa-file-pdf", description: "Acesse todas as apostilas disponíveis.", url: "https://apostilastrollchipss.netlify.app/", status: "online" },
+            { name: "Alura", icon: "fa-laptop-code", description: "Ferramentas para os cursos da Alura.", url: "https://crimsonstrauss.xyz/alura", status: "online" },
+            { name: "Speak", icon: "fa-headset", description: "Scripts para a plataforma Speak.", url: "https://speakify.cupiditys.lol/install", status: "online" },
+            { name: "Gabarito 1º Dia", icon: "fa-check-double", description: "Confira o gabarito das provas.", url: "gabarito1dia.html", status: "online" },
+            { name: "Expansão Noturno", icon: "fa-moon", description: "Novas funcionalidades e temas. Aguarde novidades.", url: "#", status: "in_development" },
+        ];
+
+        function showNotification(title, message, type = 'info') {
+            const iconMap = { success: 'fa-check-circle', error: 'fa-times-circle', info: 'fa-info-circle' };
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `<i class="fas ${iconMap[type]}"></i><div><strong>${title}</strong><br>${message}</div>`;
+            
+            notificationContainer.appendChild(notification);
+            setTimeout(() => notification.classList.add('show'), 10);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                notification.addEventListener('transitionend', () => notification.remove(), { once: true });
+            }, 5000);
+        }
+
+        function displayScripts(scripts) {
+            scriptsGrid.innerHTML = '';
+            scripts.forEach((script) => {
+                const card = document.createElement('div');
+                let cardClasses = 'script-card';
+                let statusText = 'Online';
+
+                if (script.status === 'in_development') {
+                    cardClasses += ' disabled';
+                    statusText = 'Em Breve';
+                }
+
+                card.className = cardClasses;
+                card.innerHTML = `
+                    <div class="script-header">
+                        <h3 class="script-title"><i class="fas ${script.icon}"></i> ${script.name}</h3>
+                        <div class="status-indicator ${script.status}">
+                            <div class="status-dot ${script.status}"></div>
+                            <span>${statusText}</span>
+                        </div>
+                    </div>
+                    <p class="script-description">${script.description}</p>
+                `;
+
+                card.addEventListener('click', () => {
+                    if (script.status === 'online' && script.url) {
+                        window.open(script.url, '_blank');
+                    } else if (script.status === 'in_development') {
+                        showNotification('Em Desenvolvimento', 'Este script estará disponível em breve.', 'info');
+                    }
+                });
+                
+                scriptsGrid.appendChild(card);
+            });
+
+            // Animação de entrada dos cards com IntersectionObserver
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.script-card').forEach(cardEl => {
+                observer.observe(cardEl);
+            });
+        }
+
+        displayScripts(scriptsData);
+    });
+    </script>
+</body>
+</html>
